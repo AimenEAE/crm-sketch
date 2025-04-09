@@ -4,14 +4,17 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { FeedbackProvider, FeedbackOverlay } from '@/components/feedback'
+import { cookies } from 'next/headers'
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // We can optionally still check for user if needed for other purposes
+  // Create the Supabase client
   const supabase = createClient()
+  
+  // Await the getUser call to ensure cookie operations are completed asynchronously
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
