@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { useFeedback } from './feedback-context'
 import { CommentBubble } from './comment-bubble'
 import { FeedbackToolbar } from './feedback-toolbar'
@@ -12,8 +13,8 @@ export function FeedbackOverlay() {
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 })
   const [targetElement, setTargetElement] = useState<string | null>(null)
   
-  // Get current page path
-  const currentPage = typeof window !== 'undefined' ? window.location.pathname : ''
+  // Get current page path using usePathname hook
+  const currentPage = usePathname()
   
   // Filter comments for current page
   const pageComments = comments.filter(comment => comment.page === currentPage)
