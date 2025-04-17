@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+// import { createClient } from '@/lib/supabase/server' // REMOVED
 // import { redirect } from 'next/navigation' // No longer needed here
 // import LogoutButton from './_components/LogoutButton' // No longer needed
 import Link from 'next/link'
@@ -11,11 +11,15 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Create the Supabase client
-  const supabase = createClient()
+  // Create the Supabase client // REMOVED
+  // const supabase = createClient() // REMOVED
   
-  // Await the getUser call to ensure cookie operations are completed asynchronously
-  const { data: { user } } = await supabase.auth.getUser()
+  // Await the getUser call to ensure cookie operations are completed asynchronously // REMOVED
+  // const { data: { user } } = await supabase.auth.getUser() // REMOVED
+  
+  // Since Supabase is removed, there's no user object.
+  // We will remove UI elements that depended on it.
+  const user = null; // Set user to null explicitly
 
   return (
     <FeedbackProvider>
@@ -83,8 +87,8 @@ export default async function DashboardLayout({
             </Link>
           </nav>
           
-          {/* User Section */}
-          {user && (
+          {/* User Section - REMOVED */}
+          {/* {user && ( // REMOVED
             <div className="mt-auto border-t p-4">
               <div className="flex items-center gap-3">
                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
@@ -96,7 +100,7 @@ export default async function DashboardLayout({
                 </div>
               </div>
             </div>
-          )}
+          )} // REMOVED */}
         </aside>
 
         <div className="flex flex-1 flex-col">
@@ -144,13 +148,14 @@ export default async function DashboardLayout({
                 <span className="sr-only">Settings</span>
               </button>
               
-              {user && (
+              {/* REMOVED User icon for mobile */}
+              {/* {user && ( // REMOVED
                 <button className="ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 sm:hidden">
                   <span className="text-sm font-medium text-primary">
                     {user.email?.charAt(0).toUpperCase() || 'U'}
                   </span>
                 </button>
-              )}
+              )} // REMOVED */}
             </div>
           </header>
 

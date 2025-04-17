@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+// import { createClient } from '@/lib/supabase/client' // REMOVED
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,28 +22,43 @@ export default function SignupPage() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
+  // const supabase = createClient() // REMOVED
 
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setMessage('')
     setLoading(true)
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      // You might want to configure email verification redirects
-      // options: {
-      //   emailRedirectTo: `${location.origin}/auth/callback`,
-      // },
-    })
+    // const { error } = await supabase.auth.signUp({ // REMOVED
+    //   email,
+    //   password,
+    //   // You might want to configure email verification redirects
+    //   // options: {
+    //   //   emailRedirectTo: `${location.origin}/auth/callback`,
+    //   // },
+    // }) // REMOVED
 
-    if (error) {
-      setMessage(`Signup failed: ${error.message}`)
+    // Since Supabase is removed, this is placeholder logic.
+    console.log('Signup attempt with:', email);
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
+
+    // Placeholder success/failure
+    if (email && password.length >= 6) { // Basic validation
+      setMessage('Signup successful! (Placeholder - No user created)')
+      // You might want to redirect to login or clear the form
+       router.push('/login'); // Redirect to login page
+    } else if (password.length < 6) {
+      setMessage('Signup failed: Password must be at least 6 characters (placeholder)')
     } else {
-      setMessage('Signup successful! Please check your email for confirmation.')
-      // Consider clearing the form or automatically redirecting after a delay
+      setMessage('Signup failed: Please provide valid email and password (placeholder)')
     }
+
+    // if (error) { // REMOVED
+    //   setMessage(`Signup failed: ${error.message}`) // REMOVED
+    // } else { // REMOVED
+    //   setMessage('Signup successful! Please check your email for confirmation.') // REMOVED
+    //   // Consider clearing the form or automatically redirecting after a delay
+    // } // REMOVED
     setLoading(false)
   }
 

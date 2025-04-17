@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+// import { createClient } from "@/lib/supabase/server"; // REMOVED
 import { SalesFunnelChart } from "./_components/SalesFunnelChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -58,8 +58,11 @@ function processFunnelData(candidates: { status: string }[]) {
 // --- End Placeholder Data Logic ---
 
 export default async function DashboardPage() {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // const supabase = createClient(); // REMOVED
+  // const { data: { user } } = await supabase.auth.getUser(); // REMOVED
+  
+  // Since Supabase is removed, user is null.
+  const user = null;
 
   // Process the placeholder data
   const funnelData = processFunnelData(placeholderCandidates);
@@ -68,7 +71,7 @@ export default async function DashboardPage() {
     <div className="py-6 space-y-6">
       {/* Welcome Bar */}
       <div className="bg-background p-4 rounded-lg border shadow-sm">
-        <h2 className="text-2xl font-semibold">Welcome, {user?.email || 'User'}!</h2>
+        <h2 className="text-2xl font-semibold">Welcome!</h2>
         <p className="text-muted-foreground">Today is {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </div>
       

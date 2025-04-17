@@ -1,12 +1,20 @@
 // import { createServerClient } from '@/lib/supabase/middleware' // No longer needed for redirects
-import { updateSession } from '@/lib/supabase/middleware' // Handles response cookies
-import { type NextRequest } from 'next/server'
+// import { updateSession } from '@/lib/supabase/middleware' // Handles response cookies - REMOVED
+import { type NextRequest, NextResponse } from 'next/server'
 // import { NextResponse } from 'next/server' // No longer needed
 
 export async function middleware(request: NextRequest) {
-  // The simplest middleware: just refresh the session cookie and allow the request.
+  // The simplest middleware: just refresh the session cookie and allow the request. - REMOVED
   // No auth checks or redirects are performed here.
-  return await updateSession(request);
+  // return await updateSession(request); - REMOVED
+
+  // Since Supabase is removed, just pass the request through.
+  // You might want to add different logic here later.
+  return NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
 }
 
 // Matcher: Run middleware on all paths except static assets, etc.
